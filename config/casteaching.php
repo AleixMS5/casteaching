@@ -1,8 +1,10 @@
 <?php
 
 return [
-    'user'=>[
-        'password'=>env('DEFFAULT_USSER_PASSWORD','1234567')
+    'default_user'=>[
+        'password'=>env('DEFAULT_USER_PASSWORD','1234567'),
+        'email'=>env('DEFAULT_USER_EMAIL','ams@example.com'),
+    'name'=>env('DEFAULT_USER_NAME','ams')
     ]
 
 ];
