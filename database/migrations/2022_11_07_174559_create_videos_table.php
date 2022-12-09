@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateVideosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,14 +16,12 @@ return new class extends Migration
         Schema::create('videos', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->string('url');
-            $table->dateTime('published_at');
-            $table->string('previous')->nullable(true);
-            $table->string('next')->nullable(true);
-            $table->boolean('completed');
-            $table->unsignedinteger('series_id');
-
+            $table->dateTime('published_at')->nullable();
+            $table->string('previous')->nullable();
+            $table->string('next')->nullable();
+            $table->integer('series_id')->nullable();
             $table->timestamps();
         });
     }
@@ -37,4 +35,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('videos');
     }
-};
+}

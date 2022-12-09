@@ -20,25 +20,33 @@ class VideoTest extends TestCase
      */
     public function users_can_view_videos()
     {
-
-        $video=Video::create([
-            'title'=> 'Ubuntu 101',
-            'description'=>'',
-            'url'=> 'https://youtu.be/w8j07_DBl_I',
-            'published_at'=>Carbon::parse('December 13,2020 8:00pm'),
-            'completed'=>false,
-            'previous'=>null,
-            'next'=>null,
-            'series_id'=>1
+        //PREPARE
+        //Wishful programming
+        $video = Video::create([
+            'title' => 'Title here',
+            'description' => 'Description here',
+            'url' => 'https://youtu.be/w8j07_DBl_I',
+            'published_at' => Carbon::parse('December 13, 2020 8:00pm'),
+            'previous' => null,
+            'next' => null,
+            'series_id' => 1
         ]);
-        $response = $this->get('/videos/'.$video->id);
 
+        //EXECUTION
+        // Http test
+        $response = $this->get('/videos/' . $video->id);
+
+
+        //ASSERTIONS
         $response->assertStatus(200);
-        $response->assertSee('Ubuntu 101');
-        $response->assertSee('');
-        $response->assertSee('December 13');
-
+        $response->assertSee('Title here');
+        $response->assertSee('Description here');
+        $response->assertSee('13 de desembre de 2020');
     }
+
+
+
+
     /**
      *
      * @test
