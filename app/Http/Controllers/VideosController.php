@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Video;
-use Illuminate\Http\Request;
 use Tests\Feature\VideoTest;
 
 class VideosController extends Controller

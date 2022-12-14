@@ -18,6 +18,11 @@
                     <x-jet-nav-link href="/videos/1" >
                         {{ __('Videos 1') }}
                     </x-jet-nav-link>
+                    @can('videos_manage_index')
+                    <x-jet-nav-link href="/manage/videos" :active="request()->routeIs('manage.videos')" >
+                        {{ __('Manage') }}
+                    </x-jet-nav-link>
+                        @endcan
                 </div>
             </div>
 
@@ -176,6 +181,11 @@
             <x-jet-responsive-nav-link href="/videos/1" >
                 {{ __('Videos 1') }}
             </x-jet-responsive-nav-link>
+            @can('videos_manage_index')
+            <x-jet-nav-link href="/manage/videos" :active="request()->routeIs('manage.videos')" >
+                {{ __('Manage') }}
+            </x-jet-nav-link>
+                @endcan
         </div>
         @if(Auth::check())
             <div class="pt-4 pb-1 border-t border-gray-200">
