@@ -2,20 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Video;
 use Illuminate\Http\Request;
+use Tests\Feature\Videoa\VideoManageControllerTest;
 
 class VideosManageController extends Controller
 {
-    /**
-llistar videos
-     */
-    public function index()
+
+    public static function testedBy()
     {
-        return view('videos.manage.index');
+        return VideoManageControllerTest::class;
     }
 
     /**
-mostrar el formulari
+     * llistar videos
+     */
+    public function index()
+    {
+        return view('videos.manage.index',['videos'=>Video::all()]);
+    }
+
+    /**
+     * mostrar el formulari
      */
     public function create()
     {
@@ -23,7 +31,7 @@ mostrar el formulari
     }
 
     /**
-guardar el video
+     * guardar el video
      */
     public function store(Request $request)
     {
@@ -31,7 +39,7 @@ guardar el video
     }
 
     /**
-mostra un sol video
+     * mostra un sol video
      */
     public function show($id)
     {
@@ -39,7 +47,7 @@ mostra un sol video
     }
 
     /**
-actualitza un video form
+     * actualitza un video form
      */
     public function edit($id)
     {
@@ -47,7 +55,7 @@ actualitza un video form
     }
 
     /**
-prosesa el formulari i guarda les modificacions
+     * prosesa el formulari i guarda les modificacions
      */
     public function update(Request $request, $id)
     {
@@ -55,7 +63,7 @@ prosesa el formulari i guarda les modificacions
     }
 
     /**
-  borrar un video
+     * borrar un video
      */
     public function destroy($id)
     {

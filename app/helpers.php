@@ -127,4 +127,24 @@ if (!function_exists('create_permissions')) {
 }
 
 
-
+if (!function_exists('create_sample_videos')) {
+    function create_sample_videos()
+    {
+        $video1 = Video::create([
+            'title' => 'Video 1',
+            'description' => 'Descripció',
+            'url' => 'https://www.youtube.com/watch?v=zyABmm6Dw64&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=5'
+        ]);
+        $video2 = Video::create([
+            'title' => 'Video 2',
+            'description' => 'Descripció',
+            'url' => 'https://www.youtube.com/watch?v=q06GbMP1h_s&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=2'
+        ]);
+        $video3 = Video::create([
+            'title' => 'Video 3',
+            'description' => 'Descripció',
+            'url' => 'https://www.youtube.com/watch?v=ofSbYUEml4c&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=9&t=1520s'
+        ]);
+        return [$video1,$video2,$video3];
+    }
+}
