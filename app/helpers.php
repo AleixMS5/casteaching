@@ -78,6 +78,22 @@ if (!function_exists('create_superadmin_user')) {
     }
 }
 
+if (!function_exists('create_useradmin_user')) {
+    function create_useradmin_user()
+    {
+        Permission::create(['name' => 'user_manage_index']);
+        $user = User::create([
+            'name' => 'UserAdmin',
+            'email' => 'useradmin@gmail.com',
+            'password' => Hash::make('1234')
+        ]);
+        $user->givePermissionTo('user_manage_index');
+        add_personal_team($user);
+
+        return $user;
+    }
+}
+
 if (!function_exists('add_personal_team')) {
     function add_personal_team($user): void
     {
@@ -103,7 +119,9 @@ if (!function_exists('create_video_manager_user')) {
         ]);
 
         Permission::create(['name' => 'videos_manage_index']);
+        Permission::create(['name' => 'videos_manage_create']);
         $user->givePermissionTo('videos_manage_index');
+        $user->givePermissionTo('videos_manage_create');
         add_personal_team($user);
         return $user;
     }
@@ -123,6 +141,7 @@ if (!function_exists('create_permissions')) {
     function create_permissions()
     {
         Permission::firstOrCreate(['name' => 'videos_manage_index']);
+        Permission::firstOrCreate(['name' => 'videos_manage_create']);
     }
 }
 

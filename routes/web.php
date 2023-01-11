@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UsersManageController;
 use App\Http\Controllers\VideosController;
 use App\Http\Controllers\VideosManageController;
 use App\Models\Video;
@@ -21,4 +22,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/manage/videos', [VideosManageController::class, 'index'])->middleware(['can:videos_manage_index'])
         ->name('manage.videos');
+
+    Route::get('/manage/users', [UsersManageController::class, 'index'])->middleware(['can:user_manage_index'])
+        ->name('manage.users');
 });
