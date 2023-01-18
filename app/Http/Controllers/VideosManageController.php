@@ -35,7 +35,15 @@ class VideosManageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        return response()->view('videos.manage.index',['videos'=>[]],201);
+
+        Video::create([
+'title'=>$request->title,
+            'description'=>$request->description,
+            'url'=>$request->url
+        ]);
+        session()->flash('succes','Succesfully created');
+        return redirect()->route('manage.videos');
     }
 
     /**
@@ -67,6 +75,8 @@ class VideosManageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Video::find($id)->delete();
+        session()->flash('succes','Succesfully deleted');
+        return redirect()->route('manage.videos');
     }
 }

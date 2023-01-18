@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Tests\Feature\Videoa\VideoManageControllerTest;
 
 class UsersManageController extends Controller
@@ -35,7 +37,15 @@ class UsersManageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        return response()->view('videos.manage.index',['videos'=>[]],201);
+
+        User::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=> Hash::make($request->password)
+        ]);
+        session()->flash('succes','Succesfully created');
+        return redirect()->route('manage.users');
     }
 
     /**
@@ -67,6 +77,8 @@ class UsersManageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::find($id)->delete();
+        session()->flash('succes','Succesfully deleted');
+        return redirect()->route('manage.users');
     }
 }
