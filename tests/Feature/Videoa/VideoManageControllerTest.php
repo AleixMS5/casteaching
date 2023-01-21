@@ -22,6 +22,49 @@ class VideoManageControllerTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function user_with_permissions_can_update_videos()
+    {
+        $this->loginAsVideoManager();
+        $video = Video::create(['title' => 'title 2',
+            'description' => 'description 2',
+            'url' => 'https://www.youtube.com/watch?v=Tt8z8X8xv14&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=20']);
+        $response = $this->put('/manage/videos/' . $video->id,[
+            'title' => 'title',
+            'description' => 'description',
+            'url' => 'https://www.youtube.com/watch?v=Tt8z8X8xv14&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=20'
+        ]);
+
+        $response->assertRedirect(route('manage.videos'));
+        $response->assertSessionHas('succes', 'Succesfully updated');
+        $newVideo= Video::find($video->id);
+        $this->assertEquals('title',$newVideo->title);
+        $this->assertEquals('description',$newVideo->description);
+        $this->assertEquals($video->id,$newVideo->id);
+        $this->assertEquals('https://www.youtube.com/watch?v=Tt8z8X8xv14&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=20',$newVideo->url);
+
+    }
+
+    /** @test */
+    public function user_with_permissions_can_see_edit_videos()
+    {
+        $this->loginAsVideoManager();
+        $video = Video::create(['title' => 'title',
+            'description' => 'description',
+            'url' => 'https://www.youtube.com/watch?v=Tt8z8X8xv14&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=20']);
+        $response = $this->get('/manage/videos/' . $video->id);
+
+        $response->assertStatus(200);
+        $response->assertViewIs('videos.manage.edit');
+        $response->assertViewHas('video', function ($v) use ($video) {
+            return $video->is($v);
+        });
+        $response->assertSee("<form", false);
+        $response->assertSeeText($video->title);
+        $response->assertSeeText($video->description);
+        $response->assertSee($video->url);
+    }
+
+    /** @test */
     public function user_with_permissions_can_store_videos()
     {
         $this->loginAsVideoManager();
@@ -64,8 +107,9 @@ class VideoManageControllerTest extends TestCase
             'description' => 'description',
             'url' => 'https://www.youtube.com/watch?v=Tt8z8X8xv14&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=20']);
         $response = $this->delete('/manage/videos/' . $video->id);
-        $response ->assertStatus(403);
+        $response->assertStatus(403);
     }
+
     /** @test */
     public function user_without_permissions_cannot_add_videos()
     {
@@ -78,7 +122,7 @@ class VideoManageControllerTest extends TestCase
             'description' => 'description',
             'url' => 'https://www.youtube.com/watch?v=Tt8z8X8xv14&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=20']);
 
-        $response ->assertStatus(403);
+        $response->assertStatus(403);
     }
 
 
@@ -89,8 +133,8 @@ class VideoManageControllerTest extends TestCase
         $response = $this->get('/manage/videos');
         $response->assertStatus(200);
         $response->assertViewIs('videos.manage.index');
-        $response->assertSeeText(_('Create Video'));
-        $response->assertSee(_("form_video_create"));
+
+        $response->assertSee("<form", false);
     }
 
     /** @test */

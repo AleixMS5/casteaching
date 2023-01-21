@@ -61,7 +61,7 @@ class UsersManageController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('users.manage.edit',['user'=>User::findOrFail($id)]);
     }
 
     /**
@@ -69,11 +69,17 @@ class UsersManageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user=User::findOrFail($id);
+        $user->name=$request->name;
+        $user->email=$request->email;
+        $user->password=Hash::make($request->password);
+        $user->save();
+        session()->flash('succes','Succesfully updated');
+        return redirect()->route('manage.users');
     }
 
     /**
-     * borrar un video
+     * borrar un user
      */
     public function destroy($id)
     {

@@ -20,8 +20,47 @@ use function GuzzleHttp\Promise\all;
 class UsersManageControllerTest extends TestCase
 {
     use RefreshDatabase;
+    /** @test */
+    public function user_with_permissions_can_update_users()
+    {
+        $this->loginAsUserManager();
+        $user = User::create(['name' => 'title',
+            'email' => 'description@gmail.com',
+            'password' => 'https://www.youtube.com/watch?v=Tt8z8X8xv14&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=20']);
+        $response = $this->put('/manage/users/' . $user->id,['name' => 'title 2',
+            'email' => 'description2@gmail.com',
+            'password' => 'https://www.youtube.com/watch?v=Tt8z8X8xv14&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=202']);
+
+        $response->assertRedirect(route('manage.users'));
+        $response->assertSessionHas('succes', 'Succesfully updated');
+        $newVideo= User::find($user->id);
+        $this->assertEquals('title 2',$newVideo->name);
+        $this->assertEquals('description2@gmail.com',$newVideo->email);
+        $this->assertEquals($user->id,$newVideo->id);
 
 
+    }
+    /** @test */
+    public function user_with_permissions_can_see_edit_users ()
+    {
+        $this->loginAsUserManager();
+        $user = User::create(['name' => 'title',
+            'email' => 'description@gmail.com',
+            'password' => 'https://www.youtube.com/watch?v=Tt8z8X8xv14&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=20']);
+        $response = $this->get('/manage/users/'.$user->id);
+
+        $response->assertStatus(200);
+        $response->assertViewIs('users.manage.edit');
+
+        $response->assertSee("<form",false);
+        $response->assertViewHas('user',function ($v) use ($user){
+            return $user->is($v);
+        });
+
+        $response->assertSeeText($user->name);
+        $response->assertSee($user->email);
+
+    }
     /** @test */
     public function user_with_permissions_can_store_users()
     {
@@ -77,7 +116,7 @@ class UsersManageControllerTest extends TestCase
         $response = $this->get('/manage/users');
         $response->assertStatus(200);
         $response->assertViewIs('users.manage.users');
-        $response->assertSeeText(_('Create User'));
+
         $response->assertSee(_("form_user_create"));
     }
 

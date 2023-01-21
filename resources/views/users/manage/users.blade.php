@@ -11,9 +11,9 @@
             <div class="lg:grid bg-white lg:grid-cols-12 lg:gap-x-5">
                 <aside class=" py-6 px-4 sm:px-6 lg:col-span-3 lg:py-0 lg:px-4">
                     <h3 class="  py-5 text-gray-900 font-medium text-lg leading-5 ">
-                        Vídeos
+                        Users
                     </h3>
-                    <p class="text-gray-600 text-sm mt-1">Informació Bàsica del video</p>
+                    <p class="text-gray-600 text-sm mt-1">Informació Bàsica del Usuari</p>
                 </aside>
                 <div class="space-y-6 sm:px-6 lg:col-span-9 lg:px-0">
 
@@ -97,7 +97,11 @@
                             </thead>
                             <tbody class="divide-y divide-gray-200 bg-white">
                             @foreach($users as $video)
-                                <tr>
+                                @if($loop->odd)<tr class="bg-white">
+
+                                @else
+                                    <tr class="bg-gray-50">
+                                        @endif
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{$video->id}}</td>
                                     <td class=" whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:table-cell">{{$video->name}}</td>
                                     <td class=" whitespace-nowrap px-3 py-4 text-sm text-gray-500 lg:table-cell">{{$video->superadmin}}</td>
@@ -107,8 +111,17 @@
                                     </td>
 
                                     <td class="whitespace-nowrap py-4 pl-3 pr-4  text-sm font-medium sm:pr-6 text-center">
-                                        <a href="#"target="_blank"  class=" text-center text-indigo-600 hover:text-indigo-900">Edit</a>
-                                        <a href="/videos/{{$video->id}}"target="_blank" class=" text-center text-indigo-600 hover:text-indigo-900">Show</a>
+
+                                        <form class="inline" action="/manage/users/{{$video->id}}" method="POST">
+                                            @csrf
+                                            @method('GET')
+                                            <a href="/users/{{$video->id}}"
+                                               target="_blank"
+                                               class=" text-center text-indigo-600 hover:text-indigo-900"
+                                               onclick="event.preventDefault();
+                                            this.closest('form').submit();">edit</a>
+                                        </form>
+                                        <a href="/users/{{$video->id}}"target="_blank" class=" text-center text-indigo-600 hover:text-indigo-900">Show</a>
                                         <form  class="inline" action="/manage/users/{{$video->id}}" method="POST">
                                             @csrf
                                             @method('DELETE')

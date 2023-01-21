@@ -85,6 +85,8 @@ if (!function_exists('create_useradmin_user')) {
         Permission::create(['name' => 'users_manage_create']);
         Permission::create(['name' => 'users_manage_delete']);
         Permission::create(['name' => 'users_manage_add']);
+        Permission::create(['name' => 'users_manage_edit']);
+        Permission::create(['name' => 'users_manage_update']);
         $user = User::create([
             'name' => 'UserAdmin',
             'email' => 'useradmin@gmail.com',
@@ -94,6 +96,8 @@ if (!function_exists('create_useradmin_user')) {
         $user->givePermissionTo('users_manage_create');
         $user->givePermissionTo('users_manage_delete');
         $user->givePermissionTo('users_manage_add');
+        $user->givePermissionTo('users_manage_edit');
+        $user->givePermissionTo('users_manage_update');
         add_personal_team($user);
 
         return $user;
@@ -128,10 +132,14 @@ if (!function_exists('create_video_manager_user')) {
         Permission::create(['name' => 'videos_manage_create']);
         Permission::create(['name' => 'videos_manage_delete']);
         Permission::create(['name' => 'videos_manage_add']);
+        Permission::create(['name' => 'videos_manage_edit']);
+        Permission::create(['name' => 'videos_manage_update']);
         $user->givePermissionTo('videos_manage_index');
         $user->givePermissionTo('videos_manage_create');
         $user->givePermissionTo('videos_manage_delete');
         $user->givePermissionTo('videos_manage_add');
+        $user->givePermissionTo('videos_manage_edit');
+        $user->givePermissionTo('videos_manage_update');
         add_personal_team($user);
         return $user;
     }
@@ -156,6 +164,10 @@ if (!function_exists('create_permissions')) {
         Permission::firstOrCreate(['name' => 'users_manage_add']);
         Permission::firstOrCreate(['name' => 'videos_manage_delete']);
         Permission::firstOrCreate(['name' => 'videos_manage_add']);
+        Permission::firstOrCreate(['name' => 'users_manage_edit']);
+        Permission::firstOrCreate(['name' => 'videos_manage_edit']);
+        Permission::firstOrCreate(['name' => 'users_manage_update']);
+        Permission::firstOrCreate(['name' => 'videos_manage_update']);
     }
 }
 
