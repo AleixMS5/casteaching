@@ -65,20 +65,23 @@ class UsersManageControllerTest extends TestCase
     public function user_with_permissions_can_store_users()
     {
         $this->loginAsUserManager();
-        $user = objectify(['name' => 'title',
-            'email' => 'description@gmail.com',
-            'password' => 'https://www.youtube.com/watch?v=Tt8z8X8xv14&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=20']);
+        $user = objectify(['name' => 'UserAdmi',
+            'email' => 'aseradmin@gmail.com',
+            'password' => '1234']);
 
-        $response = $this->post('/manage/users', ['name' => 'title',
-            'email' => 'description@gmail.com',
-            'password' => 'https://www.youtube.com/watch?v=Tt8z8X8xv14&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=20']);
+        $response = $this->post('/manage/users', ['name' => 'UserAdmi',
+            'email' => 'aseradmin@gmail.com',
+            'password' => '1234']);
         $response->assertRedirect(route('manage.users'));
         $response->assertSessionHas('succes', 'Succesfully created');
-        $UserDB = User::first();
+
+        $UserDB = User::where('email','aseradmin@gmail.com')->first();
+//        dd($UserDB->password,Hash::make($user->password));
+
         $this->assertNotNull($UserDB);
-        $this->assertEquals($UserDB->title, $user->title);
-        $this->assertEquals($UserDB->description, $user->description);
-        $this->assertEquals($UserDB->url, $user->url);
+        $this->assertEquals($UserDB->name, $user->name);
+        $this->assertEquals($UserDB->email, $user->email);
+        $this->assertTrue(Hash::check($user->password,$UserDB->password));
 
     }
     /** @test */

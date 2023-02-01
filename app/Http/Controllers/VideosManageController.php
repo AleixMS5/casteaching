@@ -19,7 +19,7 @@ class VideosManageController extends Controller
      */
     public function index()
     {
-        return view('videos.manage.index',['videos'=>Video::all()]);
+        return view('videos.manage.index', ['videos' => Video::all()]);
     }
 
     /**
@@ -38,11 +38,11 @@ class VideosManageController extends Controller
 //        return response()->view('videos.manage.index',['videos'=>[]],201);
 
         Video::create([
-'title'=>$request->title,
-            'description'=>$request->description,
-            'url'=>$request->url
+            'title' => $request->title,
+            'description' => $request->description,
+            'url' => $request->url
         ]);
-        session()->flash('succes','Succesfully created');
+        session()->flash('succes', 'Succesfully created');
         return redirect()->route('manage.videos');
     }
 
@@ -59,7 +59,7 @@ class VideosManageController extends Controller
      */
     public function edit($id)
     {
-       return view('videos.manage.edit',['video'=>Video::findOrFail($id)]);
+        return view('videos.manage.edit', ['video' => Video::findOrFail($id)]);
     }
 
     /**
@@ -67,12 +67,12 @@ class VideosManageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $video=Video::findOrFail($id);
-        $video->title=$request->title;
-        $video->description=$request->description;
-        $video->url=$request->url;
+        $video = Video::findOrFail($id);
+        $video->title = $request->title;
+        $video->description = $request->description;
+        $video->url = $request->url;
         $video->save();
-        session()->flash('succes','Succesfully updated');
+        session()->flash('succes', 'Succesfully updated');
         return redirect()->route('manage.videos');
     }
 
@@ -82,7 +82,7 @@ class VideosManageController extends Controller
     public function destroy($id)
     {
         Video::find($id)->delete();
-        session()->flash('succes','Succesfully deleted');
+        session()->flash('succes', 'Succesfully deleted');
         return redirect()->route('manage.videos');
     }
 }
