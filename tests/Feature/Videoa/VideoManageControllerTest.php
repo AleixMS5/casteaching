@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Tests\Feature\Traits\CanLogin;
 use Tests\TestCase;
 use Spatie\Permission\Models\Permission;
 use function GuzzleHttp\Promise\all;
@@ -19,7 +20,7 @@ use function GuzzleHttp\Promise\all;
  */
 class VideoManageControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase , CanLogin;
 
     /** @test */
     public function user_with_permissions_can_update_videos()
@@ -214,20 +215,6 @@ class VideoManageControllerTest extends TestCase
         $response->assertViewIs('videos.manage.index');
     }
 
-    private function loginAsVideoManager()
-    {
-        Auth::login(create_video_manager_user());
-    }
 
-
-    private function loginAsSuperAdmin()
-    {
-        Auth::login(create_superadmin_user());
-    }
-
-    private function loginAsRegularUser()
-    {
-        Auth::login(create_regular_user());
-    }
 }
 
