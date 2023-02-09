@@ -1,5 +1,9 @@
 ## TROUBLESHOOTING
 
+### Instal·lació de vue amb Vite
+
+TODO
+
 ### Error migració model_has_permissions de laravel permissions
 
 
