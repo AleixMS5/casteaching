@@ -1,13 +1,59 @@
 ## TROUBLESHOOTING
 
+### Error: @vitejs/plugin-vue requires vue (>=3.2.25) to be present in the dependency tree.
+
+
+Instal·leu 
+
+``` 
+npm i vue@3.2.26
+```
+
 ### Instal·lació de vue amb Vite
 
-TODO
+```
+npm i vue@3.2.26
+npm install --save-dev @vitejs/plugin-vue
+``` 
+
+i al fitxer config de vite (vite.config.js) cal importar el nou plugin:
+
+``` 
+import vue from '@vitejs/plugin-vue';
+```
+
+I posar el plugin vue:
+
+
+```
+    vue({
+            template: {
+                transformAssetUrls: {
+                    // The Vue plugin will re-write asset URLs, when referenced
+                    // in Single File Components, to point to the Laravel web
+                    // server. Setting this to `null` allows the Laravel plugin
+                    // to instead re-write asset URLs to point to the Vite
+                    // server instead.
+                    base: null,
+
+                    // The Vue plugin will parse absolute URLs and treat them
+                    // as absolute paths to files on disk. Setting this to
+                    // `false` will leave absolute URLs un-touched so they can
+                    // reference assets in the public directory as expected.
+                    includeAbsolute: false,
+                },
+            },
+        }),
+``` 
+
+Podeu veure com queda el fitxer en aquest repositori.
+
+Executeu npm run dev i comprovau no dona cap error. Ja reniu vue instal·lat
 
 ### Error migració model_has_permissions de laravel permissions
 
 
-El error és:
+L'error és:
 
 ```
 $ php artisan migrate:refresh --seed
