@@ -20,7 +20,7 @@ use function GuzzleHttp\Promise\all;
  */
 class VideoManageControllerTest extends TestCase
 {
-    use RefreshDatabase , CanLogin;
+    use RefreshDatabase ;
 
     /** @test */
     public function user_with_permissions_can_update_videos()
@@ -216,5 +216,14 @@ class VideoManageControllerTest extends TestCase
     }
 
 
+    private function loginAsVideoManager()
+    {
+        Auth::login(create_video_manager_user());
+    }
+
+    private function loginAsRegularUser()
+    {
+        Auth::login(create_regular_user());
+    }
 }
 
