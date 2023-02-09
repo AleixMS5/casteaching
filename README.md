@@ -1,3 +1,71 @@
+## TROUBLESHOOTING
+
+### Error migració model_has_permissions de laravel permissions
+
+
+El error és:
+
+```
+$ php artisan migrate:refresh --seed
+...
+SQLSTATE[HY000]: General error: 1 near ")": syntax error (SQL: create table "model_has_permissions" ("" integer not null, "model_type" varchar not null, "model_id" integer not null, foreign key() references "permissions"("id") on delete cascade, primary key ("", "model_id", "model_type")))
+```
+
+Si us passa això és que us heu instal·lat just la versió 5.9.0 que té un error. A la 5.9.1 s'arregla. Per canviar-ho:
+
+editeu el fitxer composer.json i canvieu 5.9.0 del paquet laravel permission per 5.9.1
+
+I executeu:
+
+```
+rm -rf vendor
+composer update
+composer install
+rm -rf database/migrations/*_create_permission_tables.php
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"\n
+``
+10138  php artisan migrate:refresh --seed
+10139  php artisan migrate:fresh --seed
+10140  php artisan cache:clear
+10141  php artisan migrate:fresh --seed
+10142  php artisan cache:clear
+10143  php artisan migrate:fresh --seed
+10144  php artisan migrate:refresh --seed
+10145  php artisan migrate:refresh
+10146  git status
+10147  composer show spatie/laravel-permission\n
+10148  composer install\n
+10149  composer show spatie/laravel-permission\n
+10150  git status
+10151  composer update
+10152  git status
+10153  php artisan migrate:refresh --seed
+10154  php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"\n
+10155  php artisan migrate:refresh --seed
+10156  git status
+10157  git add .
+10158  git commit -m "Forçar actualització del paquet laravel_permission a 5.9.1 per evitar error al executar migracions"
+10159  git push origin main
+10160  gh browse
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
