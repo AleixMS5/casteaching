@@ -19,7 +19,7 @@
     },
     "dependencies": {
         "casteaching": "./casteaching_javascript",
-        "vue": "^3.2.36",
+        "vue": "^2.7.14",
         "vue-loader": "^17.0.1"
     }
 }
