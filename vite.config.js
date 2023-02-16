@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel, { refreshPaths } from 'laravel-vite-plugin';
-import vue from '@vitejs/plugin-vue';
+import vue from '@vitejs/plugin-vue2';
 
 export default defineConfig({
     plugins: [
