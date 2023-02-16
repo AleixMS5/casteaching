@@ -1,5 +1,5 @@
 <template>
-    <div id='app'>todo vue</div>
+    <div>todo vue</div>
 </template>
 
 <script>

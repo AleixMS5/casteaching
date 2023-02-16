@@ -7,11 +7,19 @@ import VideosList from "./components/VideosList.vue";
 
 window.Alpine = Alpine;
 window.casteaching=casteaching;
-window.Vue=Vue;
-window.Vue.component('videos-list',"./components/VideosList.vue")
 Alpine.start();
 
 
-const app = new window.Vue({
-    el: '#app',
-});
+const vueApp = document.querySelector('#app')
+
+if(vueApp){
+    console.log('JORLÑ!!!!!!!!!!!');
+    window.Vue = Vue
+    window.Vue.component('videos-list', VideosList )
+    // window.Vue.component('video-form', VideoForm )
+    // window.Vue.component('status', Status )
+
+    const app = new window.Vue({
+        el: '#vueapp',
+    });
+}
