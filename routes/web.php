@@ -3,6 +3,7 @@
 use App\Http\Controllers\UsersManageController;
 use App\Http\Controllers\VideosController;
 use App\Http\Controllers\VideosManageController;
+use App\Http\Controllers\VideosManageVueController;
 use App\Models\Video;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
@@ -36,4 +37,18 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         ->name('manage.users');
     Route::put('/manage/users/{id}',[UsersManageController::class,'update'])->middleware(['can:users_manage_update']);
     Route::get('/manage/users/{id}',[UsersManageController::class,'edit'])->middleware(['can:users_manage_edit']);
+
+
+    Route::get('vue/manage/videos', [VideosManageVueController::class, 'index'])->middleware(['can:videos_manage_index'])
+        ->name('vue.manage.videos');
+    Route::post('vue/manage/videos',[VideosManageVueController::class,'store'])->middleware(['can:videos_manage_add']);
+
+    Route::delete('vue/manage/videos/{id}',[VideosManageVueController::class,'destroy']) ->middleware(['can:videos_manage_delete']);
+    Route::put('vue/manage/videos/{id}',[VideosManageVueController::class,'update']) ->middleware(['can:videos_manage_update']);
+    Route::get('vue/manage/videos/{id}',[VideosManageVueController::class,'edit']) ->middleware(['can:videos_manage_edit']);
+
+});
+
+Route::get('/casteaching_javascript',function (){
+    return view('casteaching_javascript');
 });

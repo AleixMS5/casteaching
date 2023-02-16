@@ -23,6 +23,11 @@
                         {{ __('Manage videos') }}
                     </x-jet-nav-link>
                         @endcan
+                    @can('videos_manage_index')
+                        <x-jet-nav-link href="/vue/manage/videos" :active="request()->routeIs('vue.manage.videos')" >
+                            {{ __('Manage vue videos') }}
+                        </x-jet-nav-link>
+                    @endcan
 
                     @can('user_manage_index')
                         <x-jet-nav-link href="/manage/users" :active="request()->routeIs('manage.users')" >
@@ -198,6 +203,16 @@
                 {{ __('Manage') }}
             </x-jet-nav-link>
                 @endcan
+            @can('videos_manage_index')
+                <x-jet-nav-link href="/vue/manage/videos" :active="request()->routeIs('vue.manage.videos')" >
+                    {{ __('Manage vue videos') }}
+                </x-jet-nav-link>
+            @endcan
+            @can('user_manage_index')
+                <x-jet-nav-link href="/manage/users" :active="request()->routeIs('manage.users')" >
+                    {{ __('Manage users') }}
+                </x-jet-nav-link>
+            @endcan
         </div>
         @if(Auth::check())
             <div class="pt-4 pb-1 border-t border-gray-200">

@@ -13,6 +13,7 @@ export default defineConfig({
                 ...refreshPaths,
                 'app/Http/Livewire/**',
             ],
+
         }),
 
         vue({
@@ -35,4 +36,7 @@ export default defineConfig({
         }),
 
     ],
+    commonjsOptions:{
+        exmExternals: true,
+    },
 });

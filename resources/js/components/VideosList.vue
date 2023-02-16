@@ -1,10 +1,11 @@
 <template>
-$END$
+    <div>todo</div>
+
 </template>
 
 <script>
 export default {
-name: "prova"
+    name: "VideosList"
 }
 </script>
 
