@@ -114,15 +114,9 @@
 
                                         <td class="whitespace-nowrap py-4 pl-3 pr-4  text-sm font-medium sm:pr-6 text-center">
 
-                                            <form class="inline" action="/manage/videos/{{$video->id}}" method="POST">
-                                                @csrf
-                                                @method('GET')
-                                                <a href="/videos/{{$video->id}}"
-                                                   target="_blank"
-                                                   class=" text-center text-indigo-600 hover:text-indigo-900"
-                                                   onclick="event.preventDefault();
-                                            this.closest('form').submit();">edit</a>
-                                            </form>
+
+                                            <a href="/manage/videos/{{$video->id}}" target="_blank"
+                                               class=" text-center text-indigo-600 hover:text-indigo-900">edit</a>
                                             <a href="/videos/{{$video->id}}" target="_blank"
                                                class=" text-center text-indigo-600 hover:text-indigo-900">Show</a>
                                             <form class="inline" action="/manage/videos/{{$video->id}}" method="POST">

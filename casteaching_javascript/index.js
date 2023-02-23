@@ -26,7 +26,7 @@ export default {
         },
         destroy:async function (id) {
 
-            const response= await apiClient.delete('/videos'+id)
+            const response= await apiClient.delete('/videos/'+id)
             return response.data
         },
         show:async function (id) {
