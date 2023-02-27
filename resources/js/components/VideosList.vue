@@ -4,7 +4,11 @@
             <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                 <div class=" bg-gray-50 overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                     <div class=" bg-gray-50 mt-2 ml-5 sm:flex-auto">
-                        <h1 class="bg-gray-50 text-xl font-semibold text-gray-900">Videos</h1>
+                        <h1 class="bg-gray-50 text-xl font-semibold text-gray-900">Videos
+                        <button class="inline-flex items-center rounded border border-transparent bg-indigo-600 px-3 py-2 text-xs font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" @click="refresh">
+                            Refresh
+                        </button>
+                        </h1>
 
                     </div>
                     <table class="min-w-full divide-y divide-gray-300">
@@ -46,7 +50,7 @@
                             <td class="whitespace-nowrap py-4 pl-3 pr-4  text-sm font-medium sm:pr-6 text-center">
                                 <video-show-link :video=video></video-show-link>
                                 <video-edit-link :video=video></video-edit-link>
-                                <video-delete-link :video=video></video-delete-link>
+                                <video-delete-link :video=video @removed="refresh()"></video-delete-link>
 
                             </td>
                         </tr>
@@ -63,7 +67,8 @@
 import VideoShowLink from "./VideoShowLink.vue";
 import VideoEditLink from "./VideoEditLink.vue";
 import VideoDeleteLink from "./VideoDeleteLink.vue";
-
+import eventBus from "../eventBus";
+import {defaultsDeep} from "lodash/object";
 export default {
     name: "VideosList",
     components:{
@@ -106,8 +111,25 @@ export default {
         }
     },
     async created() {
-        this.videos = await window.casteaching.videos()
+        await this.getVideos()
+        eventBus.$on('created',async () => {
+
+            await this.refresh()
+        });
+        eventBus.$on('updated',async () => {
+
+            await this.refresh()
+        });
+    },
+    methods:{
+        async getVideos() {
+            this.videos = await window.casteaching.videos()
+        },
+        async refresh() {
+            await this.getVideos()
+        }
     }
+
 }
 </script>
 

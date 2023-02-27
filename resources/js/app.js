@@ -6,6 +6,8 @@ import Vue from 'vue/dist/vue.js';
 import VideosList from "./components/VideosList.vue";
 import VideoForm from "./components/VideoForm.vue";
 
+import Status from "./components/Status.vue";
+
 window.Alpine = Alpine;
 window.casteaching=casteaching;
 Alpine.start();
@@ -18,6 +20,7 @@ if(vueApp){
     window.Vue = Vue
     window.Vue.component('videos-list', VideosList )
     window.Vue.component('video-form', VideoForm )
+    window.Vue.component('status', Status )
     // window.Vue.component('video-form', VideoForm )
     // window.Vue.component('status', Status )
 
