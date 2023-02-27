@@ -1,0 +1,3 @@
+[submodule "casteaching_javascript"]
+	path = casteaching_javascript
+	url = git@github.com:AleixMS5/casteaching_javascript.git
