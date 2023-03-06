@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Video;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -11,15 +12,14 @@ class VideoCreated extends Notification
 {
     use Queueable;
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    private $video;
+
+
+    public function __construct(Video $video)
     {
-        //
+        $this->video = $video;
     }
+
 
     /**
      * Get the notification's delivery channels.
@@ -41,9 +41,9 @@ class VideoCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('Sha creat el nou viedeo'.$this->video->title." .")
+                    ->action('veure el video', url($this->video->url))
+                    ->line('Gracies per utilitzar la nostra app!');
     }
 
     /**

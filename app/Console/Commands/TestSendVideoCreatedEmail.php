@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Video;
+use App\Notifications\VideoCreated;
 use Illuminate\Console\Command;
 
 class TestSendVideoCreatedEmail extends Command
@@ -11,14 +13,14 @@ class TestSendVideoCreatedEmail extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'test:videocreatednotification';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'bla bla bla';
 
     /**
      * Execute the console command.
@@ -27,6 +29,13 @@ class TestSendVideoCreatedEmail extends Command
      */
     public function handle()
     {
-        return Command::SUCCESS;
+        $video1 = Video::create([
+            'title' => 'Video 1',
+            'description' => 'Descripció',
+            'url' => 'https://www.youtube.com/embed/jKMTRtkXAF0'
+        ]);
+
+        Notification::route('mail', 'amontero@iesebre.com')->notify(new VideoCreated($video1));
+
     }
 }
