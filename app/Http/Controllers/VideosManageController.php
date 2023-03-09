@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\VideoCreated;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Tests\Feature\Videoa\VideoManageControllerTest;
@@ -37,12 +38,15 @@ class VideosManageController extends Controller
     {
 //        return response()->view('videos.manage.index',['videos'=>[]],201);
 
-        Video::create([
+        $video=Video::create([
             'title' => $request->title,
             'description' => $request->description,
             'url' => $request->url
         ]);
         session()->flash('succes', 'Succesfully created');
+
+        VideoCreated::dispatch($video);
+
         return redirect()->route('manage.videos');
     }
 

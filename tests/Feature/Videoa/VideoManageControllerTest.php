@@ -3,13 +3,16 @@
 namespace Tests\Feature\Videoa;
 
 
+use App\Events\VideoCreated;
 use App\Models\User;
 use App\Models\Video;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
+
 use Tests\Feature\Traits\Canlogin;
 use Tests\TestCase;
 use Spatie\Permission\Models\Permission;
@@ -72,10 +75,13 @@ class VideoManageControllerTest extends TestCase
         $video = objectify(['title' => 'title',
             'description' => 'description',
             'url' => 'https://www.youtube.com/watch?v=Tt8z8X8xv14&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=20']);
+        Event::fake();
+
 
         $response = $this->post('/manage/videos', ['title' => 'title',
             'description' => 'description',
             'url' => 'https://www.youtube.com/watch?v=Tt8z8X8xv14&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=20']);
+        Event::assertDispatched(VideoCreated::class);
         $response->assertRedirect(route('manage.videos'));
         $response->assertSessionHas('succes', 'Succesfully created');
         $videoDB = Video::first();
