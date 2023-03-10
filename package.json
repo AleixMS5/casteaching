@@ -18,7 +18,8 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
-        "casteaching": "./casteaching_javascript",
+        "@ams092003/casteaching_ams2": "^1.0.2",
+
         "vue": "^2.7.14",
         "vue-loader": "^17.0.1"
     }

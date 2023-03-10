@@ -1,7 +1,7 @@
 import './bootstrap';
 
 import Alpine from 'alpinejs';
-import casteaching from 'casteaching';
+import casteaching_ams2 from '@ams092003/casteaching_ams2' ;
 import Vue from 'vue/dist/vue.js';
 import VideosList from "./components/VideosList.vue";
 import VideoForm from "./components/VideoForm.vue";
@@ -9,7 +9,7 @@ import VideoForm from "./components/VideoForm.vue";
 import Status from "./components/Status.vue";
 
 window.Alpine = Alpine;
-window.casteaching=casteaching;
+window.casteaching=casteaching_ams2;
 Alpine.start();
 
 
