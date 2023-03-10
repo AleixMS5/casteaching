@@ -7,8 +7,8 @@ return [
     'name'=>env('DEFAULT_USER_NAME','ams')
     ],
     'admins'=>[
-        'amonteor@iesebre.com',
-        'videosmanager@casteaching.com',
+        'amontero@iesebre.com',
+//        'videosmanager@casteaching.com',
 
     ]
 
