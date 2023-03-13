@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         create_video_manager_user();
         create_useradmin_user();
         create_default_videos();
+        create_sergi_tur();
 
     }
 }
