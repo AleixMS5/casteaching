@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SanctumTokenController;
 use App\Http\Controllers\VideoApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-sleep(2);
+sleep(0.5);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -27,3 +28,4 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 Route::get('/videos/{id}',[VideoApiController::class,'show']);
 
 Route::get('/videos',[VideoApiController::class,'index']);
+Route::post('/sanctum/token', SanctumTokenController::class);
