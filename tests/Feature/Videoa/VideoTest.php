@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Videoa;
 
+use App\Models\Serie;
 use App\Models\Video;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -54,5 +55,35 @@ class VideoTest extends TestCase
     { $response = $this->get('/videos/9999');
 
         $response->assertStatus(404);
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function video_have_serie()
+    {
+        $serie1=Serie::create([
+            'title'=>'TDD',
+
+            'description'=>'imatge',
+
+            'image'=>'tdd.jepg',
+            'teacher_name'=>'Aleix Montero Sabaté',
+            'teacher_photo_url'=>'https://www.gravatar.com/avatar/'.md5('sergiturbadenas@gmail.com'),
+            'created_at'=> \Illuminate\Support\Carbon::now()->addSeconds(1)
+        ]);
+        $video=Video::create([
+            'title' => '132 2022 01 20 Laravel Database Relationships Relació 1 a n series i videos',
+            'description' => 'bla bla bla',
+            'url' => 'https://www.youtube.com/embed/VTIqo4fGkMs',
+
+        ]);
+
+        $this->assertNull($video->serie);
+
+        $video->setSerie($serie1);
+
+        $this->assertNotNull($video->fresh()->serie);
     }
     }

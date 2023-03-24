@@ -23,6 +23,6 @@ class DatabaseSeeder extends Seeder
         create_useradmin_user();
         create_default_videos();
         create_sergi_tur();
-
+        create_sample_series();
     }
 }

@@ -37,11 +37,17 @@ class VideosManageController extends Controller
     public function store(Request $request)
     {
 //        return response()->view('videos.manage.index',['videos'=>[]],201);
-
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'url' =>'required',
+        ]);
         $video=Video::create([
             'title' => $request->title,
             'description' => $request->description,
-            'url' => $request->url
+            'url' => $request->url,
+            'serie_id'=>$request->serie_id
+
         ]);
         session()->flash('succes', 'Succesfully created');
 
@@ -75,6 +81,7 @@ class VideosManageController extends Controller
         $video->title = $request->title;
         $video->description = $request->description;
         $video->url = $request->url;
+        $video->serie_id=$request->serie_id;
         $video->save();
         session()->flash('succes', 'Succesfully updated');
         return redirect()->route('manage.videos');

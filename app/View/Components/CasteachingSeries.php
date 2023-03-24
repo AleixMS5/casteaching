@@ -28,7 +28,7 @@ class CasteachingSeries extends Component
      * @return \Illuminate\Contracts\View\View|\Closure|string
      */
     public function render()
-    {   $series = Serie::all();
+    {   $series = Serie::orderBy('created_at', 'desc')->get();
         return view('components.casteaching-series',[
             'series'=> $series
         ]);

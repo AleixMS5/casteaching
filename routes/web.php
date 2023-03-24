@@ -4,10 +4,9 @@ use App\Http\Controllers\UsersManageController;
 use App\Http\Controllers\VideosController;
 use App\Http\Controllers\VideosManageController;
 use App\Http\Controllers\VideosManageVueController;
-use App\Models\Video;
-use Carbon\Carbon;
+use GitHub\Sponsors\Client;
 use Illuminate\Support\Facades\Route;
-
+use Laravel\Socialite\Facades\Socialite;
 
 
 Route::get('/', [\App\Http\Controllers\LandingPageController::class,'show']);
@@ -51,3 +50,33 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 Route::get('/casteaching_javascript',function (){
     return view('casteaching_javascript');
 });
+
+
+Route::get('/github_sponsors', function () {
+    $client = app(Client::class);
+    dump($sponsors = $client->login('acacha')->sponsors());
+    foreach ($sponsors as $sponsor) {
+        dump($sponsor['avatarUrl']); // The sponsor's GitHub avatar url...
+        dump($sponsor['name']); // The sponsor's GitHub name...
+    }
+
+    dump($sponsors = $client->login('driesvints')->sponsors());
+    foreach ($sponsors as $sponsor) {
+        dump($sponsor);
+    }
+
+    dd($client->login('acacha')->isSponsoredBy('acacha'));
+});
+
+
+Route::get('/auth/redirect',[\App\Http\Controllers\GithubAuthController::class,'redirect']
+
+
+ );
+
+
+
+Route::get('/auth/callback', [\App\Http\Controllers\GithubAuthController::class,'callback']);
+
+
+

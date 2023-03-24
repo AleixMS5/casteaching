@@ -32,4 +32,15 @@ class Video extends Model
     {
         return optional($this->published_at)->diffForHumans(Carbon::now());
     }
+
+    public function serie(){
+        return $this->belongsTo(Serie::class);
+    }
+
+    public function setSerie(Serie $serie1)
+    {
+        $this->serie_id=$serie1->id;
+        $this->save();
+        return $this;
+    }
 }

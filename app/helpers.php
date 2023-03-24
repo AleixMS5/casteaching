@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Serie;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\Video;
@@ -282,3 +283,42 @@ if (! function_exists('objectify')) {
     }
 }
 
+if (! function_exists('create_sample_series')) {
+    function create_sample_series()
+    {
+        $serie1=Serie::create([
+            'title'=>'TDD',
+
+            'description'=>'imatge',
+
+            'image'=>'tdd.jpeg',
+            'teacher_name'=>'Aleix Montero Sabaté',
+            'teacher_photo_url'=>'https://www.gravatar.com/avatar/'.md5('sergiturbadenas@gmail.com'),
+            'created_at'=> \Illuminate\Support\Carbon::now()->addSeconds(1)
+        ]);
+
+        $serie2=Serie::create([
+            'title'=>'TDD2',
+
+            'description'=>'imatge',
+
+            'image'=>'tdd2.jpeg',
+            'teacher_name'=>'Aleix Montero Sabaté',
+            'teacher_photo_url'=>'https://www.gravatar.com/avatar/'.md5('sergiturbadenas@gmail.com'),
+            'created_at'=>Carbon::now()->addSeconds(2)
+        ]);
+
+        $serie3=Serie::create([
+            'title'=>'TDD3',
+
+            'description'=>'imatge',
+
+            'image'=>'tdd3.jpeg',
+            'teacher_name'=>'Aleix Montero Sabaté',
+            'teacher_photo_url'=>'https://www.gravatar.com/avatar/'.md5('sergiturbadenas@gmail.com'),
+            'created_at'=>Carbon::now()->addSeconds(3)
+
+        ]);
+        return[$serie1,$serie2,$serie3];
+    }
+}

@@ -39,6 +39,19 @@
                                     </div>
 
                                 </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700"
+                                           for="description">serie</label>
+                                    <div class="mt-1">
+                                        <select id="serie" name="serie_id" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                            @foreach(\App\Models\Serie::all() as $series)
+                                                <option value="{{$series->id}}">{{$series->title}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700" for="url">URL</label>
                                     <div class="mt-1 flex rounded-md shadow-sm">
@@ -47,7 +60,7 @@
                                         <input
                                             class="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                             placeholder="https://www.youtube.com/watch?v=tweo3gmdha4&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=19"
-                                            type="url" name="url" id="url" value="{{$video->url}}>
+                                            type="url" name="url" id="url" value="{{$video->url}}">
                                     </div>
 
                                 </div>

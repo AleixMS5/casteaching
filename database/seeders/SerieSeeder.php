@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Serie;
 use Illuminate\Database\Seeder;
 
 class SerieSeeder extends Seeder
@@ -12,7 +13,7 @@ class SerieSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        //
+    {   create_sample_series();
+
     }
 }

@@ -4,11 +4,13 @@ namespace Tests\Feature\Videoa;
 
 
 use App\Events\VideoCreated;
+use App\Models\Serie;
 use App\Models\User;
 use App\Models\Video;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
@@ -89,6 +91,45 @@ class VideoManageControllerTest extends TestCase
         $this->assertNotNull($videoDB);
         $this->assertEquals($video->title,$videoDB->title );
         $this->assertEquals($videoDB->description, $video->description);
+        $this->assertEquals($videoDB->url, $video->url);
+
+    }
+    /** @test */
+    public function user_with_permissions_can_store_videos_with_serie()
+    {
+
+        $this->loginAsVideoManager();
+        $serie1=Serie::create([
+            'title'=>'TDD',
+
+            'description'=>'imatge',
+
+            'image'=>'tdd.jepg',
+            'teacher_name'=>'Aleix Montero Sabaté',
+            'teacher_photo_url'=>'https://www.gravatar.com/avatar/'.md5('sergiturbadenas@gmail.com'),
+            'created_at'=>Carbon::now()->addSeconds(1)
+        ]);
+
+        $video = objectify(['title' => 'title',
+            'description' => 'description',
+            'url' => 'https://www.youtube.com/watch?v=Tt8z8X8xv14&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=20'
+        , 'serie_id'=>$serie1->id
+        ]);
+
+        Event::fake();
+
+
+        $response = $this->post('/manage/videos', ['title' => 'title',
+            'description' => 'description',
+            'url' => 'https://www.youtube.com/watch?v=Tt8z8X8xv14&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=20', 'serie_id'=>$serie1->id]);
+        Event::assertDispatched(VideoCreated::class);
+        $response->assertRedirect(route('manage.videos'));
+        $response->assertSessionHas('succes', 'Succesfully created');
+        $videoDB = Video::first();
+        $this->assertNotNull($videoDB);
+        $this->assertEquals($video->title,$videoDB->title );
+        $this->assertEquals($videoDB->description, $video->description);
+        $this->assertEquals($videoDB->serie_id, $serie1->id);
         $this->assertEquals($videoDB->url, $video->url);
 
     }
@@ -189,7 +230,47 @@ class VideoManageControllerTest extends TestCase
             $response->assertSee($video->title);
             $response->assertSee($video->id);
 
+
         }
+    }
+
+    /** @test */
+    public function user_with_permissions_can_manage_videos_and_see_series()
+    {
+
+
+        $this->loginAsVideoManager();
+
+        $videos = create_sample_videos();
+        $serie1=Serie::create([
+            'title'=>'TDD',
+
+            'description'=>'imatge',
+
+            'image'=>'tdd.jepg',
+            'teacher_name'=>'Aleix Montero Sabaté',
+            'teacher_photo_url'=>'https://www.gravatar.com/avatar/'.md5('sergiturbadenas@gmail.com'),
+            'created_at'=>Carbon::now()->addSeconds(1)
+        ]);
+        $videos[0]->setSerie($serie1);
+        $response = $this->get('/manage/videos');
+
+        $response->assertStatus(200);
+        $response->assertViewIs('videos.manage.index');
+        $response->assertViewHas('videos', function ($v) use ($videos) {
+            return $v->count() === count($videos) && get_class($v) === Collection::class &&
+                get_class($videos[0]) === Video::class;
+
+        });
+
+        foreach ($videos as $video) {
+
+            $response->assertSee($video->title);
+            $response->assertSee($video->id);
+
+
+        }
+        $response->assertSee($videos[0]->fresh()->serie->title);
     }
 
     /** @test */

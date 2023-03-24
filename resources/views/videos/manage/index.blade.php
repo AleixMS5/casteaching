@@ -51,6 +51,21 @@
 
                                 </div>
 
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700" for="url">Serie</label>
+                                    <div class="mt-1 flex rounded-md shadow-sm">
+
+
+                                            <select id="serie" name="serie_id" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                @foreach(\App\Models\Serie::all() as $series)
+                                                <option value="{{$series->id}}">{{$series->title}}</option>
+                                                @endforeach
+                                            </select>
+
+                                    </div>
+
+                                </div>
+
                                 <div class=" px-4 py-3 text-right sm:px-6">
                                     <button
                                         type="submit"
@@ -86,6 +101,10 @@
                                     class=" px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
                                     description
                                 </th>
+                                <th scope="col"
+                                    class=" px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
+                                    serie
+                                </th>
                                 <th scope="col" class="px-3 py-3.5 text-left  text-sm font-semibold text-gray-900">
                                     url
                                 </th>
@@ -106,6 +125,7 @@
                                         <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{$video->id}}</td>
                                         <td class=" whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:table-cell">{{$video->title}}</td>
                                         <td class=" whitespace-nowrap px-3 py-4 text-sm text-gray-500 lg:table-cell">{{$video->description}}</td>
+                                        <td class=" whitespace-nowrap px-3 py-4 text-sm text-gray-500 lg:table-cell">{{ optional($video->serie)->title}}</td>
                                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-left text-sm font-medium sm:pr-6">
                                             <a href="{{$video->url}}"
                                                target="_blank"

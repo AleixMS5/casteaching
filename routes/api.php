@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SanctumTokenController;
+use App\Http\Controllers\SerieApiController;
 use App\Http\Controllers\VideoApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +29,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 Route::get('/videos/{id}',[VideoApiController::class,'show']);
 
 Route::get('/videos',[VideoApiController::class,'index']);
+
+Route::get('/series/{id}',[SerieApiController::class,'show']);
+
+Route::get('/series',[SerieApiController::class,'index']);
 Route::post('/sanctum/token', SanctumTokenController::class);
