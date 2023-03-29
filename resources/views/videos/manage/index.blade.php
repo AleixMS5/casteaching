@@ -7,6 +7,119 @@
         <x-status></x-status>
         @can('videos_manage_create')
 
+            <x-jet-form-section data-qa="form_video_create">
+                <x-slot name="title">
+                    {{ __('Videos') }}
+                </x-slot>
+
+                <x-slot name="description">
+                    {{ __('Informacio basica del video') }}
+                </x-slot>
+                <x-slot name="actions">
+                    <x-jet-button>
+                        {{ __('Crear') }}
+                    </x-jet-button>
+                </x-slot>
+                <x-slot name="form">
+
+                    @csrf
+                    <div class="col-span-6 sm:col-span-4">
+                        <x-jet-label for="title" value="{{ __('Title') }}"/>
+
+                        <input
+                            class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            type="text" name="title" id="title">
+                        <x-jet-input-error for="title" class="mt-2"/>
+                    </div>
+                    <div class="col-span-6 sm:col-span-4">
+                        <x-jet-label for="description" value="{{ __('Description') }}"/>
+                        <textarea type="text" name="description" id="description" rows="10" --}}
+                                  class="block w-full  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+                        <x-jet-input-error for="description" class="mt-2"/>
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-4">
+                        <x-jet-label for="url" value="{{ __('Url') }}"/>
+                        <div class="mt-1 flex rounded-md shadow-sm">
+                                                                <span
+                                                                    class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-sm text-gray-500">http://</span>
+                            <input
+                                class="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                placeholder="https://www.youtube.com/watch?v=tweo3gmdha4&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=19"
+                                type="url" name="url" id="url">
+                        </div>
+                        <x-jet-input-error for="url" class="mt-2"/>
+                    </div>
+                    <div class="col-span-6 sm:col-span-4">
+                        <x-jet-label for="serie" value="{{ __('Serie') }}"/>
+                        <div class="mt-1 flex rounded-md shadow-sm">
+
+
+                            <select id="serie" name="serie_id"
+                                    class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                @foreach(\App\Models\Serie::all() as $series)
+                                    <option value="{{$series->id}}">{{$series->title}}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
+                        <x-jet-input-error for="serie" class="mt-2"/>
+                    </div>
+                    {{--                            <div class="space-y-6 bg-white py-6 px-4 sm:p-6">--}}
+                    {{--                                <div>--}}
+                    {{--                                    <label class="block text-sm font-medium text-gray-700" for="title">Tilte</label>--}}
+                    {{--                                    <div class="mt-1">--}}
+                    {{--                                        <input--}}
+                    {{--                                            class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"--}}
+                    {{--                                            type="text" name="title" id="title">--}}
+                    {{--                                    </div>--}}
+
+                    {{--                                </div>--}}
+                    {{--                                <div>--}}
+                    {{--                                    <label class="block text-sm font-medium text-gray-700"--}}
+                    {{--                                           for="description">Description</label>--}}
+                    {{--                                    <div class="mt-1">--}}
+                    {{--                            <textarea type="text" name="description" id="description" rows="10"--}}
+                    {{--                                      class="block w-full  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>--}}
+                    {{--                                    </div>--}}
+
+                    {{--                                </div>--}}
+                    {{--                                <div>--}}
+                    {{--                                    <label class="block text-sm font-medium text-gray-700" for="url">URL</label>--}}
+                    {{--                                    <div class="mt-1 flex rounded-md shadow-sm">--}}
+                    {{--                                    <span--}}
+                    {{--                                        class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-sm text-gray-500">http://</span>--}}
+                    {{--                                        <input--}}
+                    {{--                                            class="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"--}}
+                    {{--                                            placeholder="https://www.youtube.com/watch?v=tweo3gmdha4&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=19"--}}
+                    {{--                                            type="url" name="url" id="url">--}}
+                    {{--                                    </div>--}}
+
+                    {{--                                </div>--}}
+
+                    {{--                                <div>--}}
+                    {{--                                    <label class="block text-sm font-medium text-gray-700" for="url">Serie</label>--}}
+                    {{--                                    <div class="mt-1 flex rounded-md shadow-sm">--}}
+
+
+                    {{--                                        <select id="serie" name="serie_id" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">--}}
+                    {{--                                            @foreach(\App\Models\Serie::all() as $series)--}}
+                    {{--                                                <option value="{{$series->id}}">{{$series->title}}</option>--}}
+                    {{--                                            @endforeach--}}
+                    {{--                                        </select>--}}
+
+                    {{--                                    </div>--}}
+
+                    {{--                                </div>--}}
+
+
+                    {{--                            </div>--}}
+
+
+                </x-slot>
+
+
+            </x-jet-form-section>
             <div class="lg:grid bg-white md:bg-transparent  lg:grid-cols-12 lg:gap-x-5 mt-5">
                 <aside class=" py-6 px-4 sm:px-6 lg:col-span-3 lg:py-0 lg:px-4">
                     <h3 class="  py-5 text-gray-900 font-medium text-lg leading-5 ">
@@ -56,11 +169,12 @@
                                     <div class="mt-1 flex rounded-md shadow-sm">
 
 
-                                            <select id="serie" name="serie_id" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                @foreach(\App\Models\Serie::all() as $series)
+                                        <select id="serie" name="serie_id"
+                                                class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                            @foreach(\App\Models\Serie::all() as $series)
                                                 <option value="{{$series->id}}">{{$series->title}}</option>
-                                                @endforeach
-                                            </select>
+                                            @endforeach
+                                        </select>
 
                                     </div>
 

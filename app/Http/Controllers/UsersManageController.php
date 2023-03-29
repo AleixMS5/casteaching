@@ -39,11 +39,12 @@ class UsersManageController extends Controller
     {
 //        return response()->view('videos.manage.index',['videos'=>[]],201);
 
-        User::create([
+        $user= User::create([
             'name'=>$request->name,
             'email'=>$request->email,
             'password'=> Hash::make($request->password)
         ]);
+        add_personal_team($user);
         session()->flash('succes','Succesfully created');
         return redirect()->route('manage.users');
     }

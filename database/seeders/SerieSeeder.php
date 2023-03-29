@@ -13,7 +13,8 @@ class SerieSeeder extends Seeder
      * @return void
      */
     public function run()
-    {   create_sample_series();
+    {
+        create_sample_series();
 
     }
 }
