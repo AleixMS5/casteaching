@@ -29,6 +29,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::put('/manage/series/{id}',[ SeriesManageController::class,'update' ])->middleware(['can:series_manage_update']);
 
 
+    Route::put('/manage/series/image/{id}',[ \App\Http\Controllers\SeriesImageManageController::class,'update' ])->middleware(['can:series_manage_update']);
+
+
 
 
     Route::get('/manage/videos', [VideosManageController::class, 'index'])->middleware(['can:videos_manage_index'])

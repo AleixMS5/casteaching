@@ -39,7 +39,7 @@
                         </div>
                         <div class="col-span-6 sm:col-span-4">
                             <x-jet-label for="description" value="{{ __('Description') }}"/>
-                            <textarea type="text" name="description" id="description" rows="10" --}}
+                            <textarea type="text" name="description" id="description" rows="10"
                                       class="block w-full  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" >{{$serie->description}}</textarea>
                             <x-jet-input-error for="description" class="mt-2"/>
                         </div>
@@ -50,7 +50,7 @@
 
                 <x-jet-section-border/>
 
-                <x-jet-form-section submit="updateProfileInformation" data-qa="form_serie_image_edit">
+                <x-jet-form-section action="/manage/series/image/{{$serie->id}}" data-qa="form_serie_image_edit" enctype="multipart/form-data">
                     <x-slot name="title">
                         {{ __('Imatge de la serie') }}
                     </x-slot>
@@ -60,10 +60,12 @@
                     </x-slot>
 
                     <x-slot name="form">
+                        @csrf
+                        @method('PUT')
                         <div class="col-span-6 sm:col-span-4">
                             <x-jet-label for="title" value="{{ __('image') }}"/>
 
-                            <input type="file" id="image" name="image" accept="image/png, image/jpeg, image/jpg">
+                            <input type="file" id="image" name="image" accept="image/png, image/jpeg, image/jpg" >
                             <x-jet-input-error for="title" class="mt-2"/>
                         </div>
 
