@@ -14,12 +14,17 @@ class SeriesImageManageController extends Controller
   }
 
     public function update(Request $request)
-    {   $serie=Serie::findOrFail($request->id) ;
+    {  $request->validate([
+        'image'=>['image','dimensions:min_height=400,ratio=16/9']
+    ]);
+        $serie=Serie::findOrFail($request->id) ;
 
         $serie->image= $request->file('image')->store('series','public');
 
         $serie->save();
+        session()->flash('succes', 'Succesfully updated');
         return back()->withInput();
+
   }
 
 }

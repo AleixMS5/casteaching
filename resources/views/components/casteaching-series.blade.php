@@ -48,7 +48,7 @@
                         </div>
                         <div class="relative mt-8 flex items-center gap-x-4">
                             <img
-                                src=" {{$serie->teacher_photo_url}}"
+                                src=" {{$serie->teacher_photo_url??'https://avatars.dicebear.com/api/identicon/:seed.svg'}}"
                                 alt="" class="h-10 w-10 rounded-full bg-gray-100">
                             <div class="text-sm leading-6">
                                 <p class="font-semibold text-gray-900">

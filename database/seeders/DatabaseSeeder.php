@@ -24,5 +24,6 @@ class DatabaseSeeder extends Seeder
         create_default_videos();
         create_sergi_tur();
         create_sample_series();
+        create_placeholder_series_image();
     }
 }
