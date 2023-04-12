@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->text('image')->nullable();
 
             $table->string('teacher_name')->nullable();;
-            $table->dateTime('teacher_photo_url')->nullable();
+            $table->string('teacher_photo_url')->nullable();
             $table->dateTime('published_at')->nullable();
             $table->timestamps();
         });
