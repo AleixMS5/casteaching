@@ -71,6 +71,16 @@ return UserTest::class;
     public function isSuperAdmin(){
 return boolval($this->superadmin);
     }
+    public function addVideo(Video $video)
+    {
+        $video->user_id = $this->id;
+        $video->save();
+        return $this;
+    }
+    public function videos()
+    {
+        return $this->hasMany(Video::class);
+    }
 
     public static function createUserFromGithub($githubUser)
     {

@@ -198,17 +198,23 @@ if (!function_exists('create_sample_videos')) {
         $video1 = Video::create([
             'title' => 'Video 1',
             'description' => 'Descripció',
-            'url' => 'https://www.youtube.com/embed/jKMTRtkXAF0'
+            'url' => 'https://www.youtube.com/embed/jKMTRtkXAF0',
+            'published_at'=>Carbon::parse('December 13,2020 8:00pm'),
+             'serie_id' => 1
         ]);
         $video2 = Video::create([
             'title' => 'Video 2',
             'description' => 'Descripció',
-            'url' => 'https://www.youtube.com/embed/jKMTRtkXAF0'
+            'url' => 'https://www.youtube.com/embed/jKMTRtkXAF0',
+            'published_at'=>Carbon::parse('December 13,2020 8:00pm'),
+            'serie_id' => 2
         ]);
         $video3 = Video::create([
             'title' => 'Video 3',
             'description' => 'Descripció',
-            'url' => 'https://www.youtube.com/embed/jKMTRtkXAF0'
+            'url' => 'https://www.youtube.com/embed/jKMTRtkXAF0',
+            'published_at'=>Carbon::parse('December 13,2020 8:00pm'),
+            'serie_id' => 3
         ]);
         return [$video1,$video2,$video3];
     }
