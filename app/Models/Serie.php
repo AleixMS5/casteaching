@@ -54,7 +54,6 @@ class Serie extends Model
     {
         return new Attribute(
             get: fn ($value) => count($this->videos) > 0 ? '/videos/' . $this->videos->first()->id : '#'
-
         );
     }
 }

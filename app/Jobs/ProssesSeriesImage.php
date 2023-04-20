@@ -42,7 +42,7 @@ class ProssesSeriesImage implements ShouldQueue
     {
         $imageContents = Storage::disk('public')->get($this->serie->image);
         $image = Image::make($imageContents);
-        $image->resize(null,400,function($constraint){
+        $image->resize(null,400,function ($constraint) {
             $constraint->aspectRatio();
         })->limitColors(255)->encode();
         Storage::disk('public')->put($this->serie->image, (string) $image);

@@ -209,6 +209,7 @@ if (!function_exists('create_sample_videos')) {
             'published_at'=>Carbon::parse('December 13,2020 8:00pm'),
             'serie_id' => 2
         ]);
+        $video2->markAsOnlyForSubscribers();
         $video3 = Video::create([
             'title' => 'Video 3',
             'description' => 'Descripció',

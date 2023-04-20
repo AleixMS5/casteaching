@@ -2,14 +2,14 @@
 
 namespace Tests\Feature;
 
-use App\Events\SeriesImageUpdated;
+use App\Actions\Fortify\SeriesImageUpdated;
 use App\Models\Serie;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
-use Tests\TestCase;
 use Tests\Feature\Traits\Canlogin;
+use Tests\TestCase;
 
 /**
  * @covers SeriesImageManageController::class

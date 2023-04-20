@@ -5,7 +5,9 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Tests\Unit\VideoTest;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Video extends Model
 {
@@ -23,7 +25,7 @@ class Video extends Model
     // formatted_published_at accessor
     public function getFormattedPublishedAtAttribute()
     {
-        if(!$this->published_at) return '';
+        if (!$this->published_at) return '';
         $locale_date = $this->published_at->locale(config('app.locale'));
         return $locale_date->day . ' de ' . $locale_date->monthName . ' de ' . $locale_date->year;
     }
@@ -60,5 +62,29 @@ class Video extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function markAsOnlyForSubscribers()
+    {
+        $this->needs_subscription = Carbon::now();
+        $this->save();
+        return $this;
+    }
+
+    protected function onlyForSubscribers(): Attribute
+    {
+        return new Attribute(
+            get: fn($value) => !is_null($this->needs_subscription)
+        );
+    }
+
+    public function canBeDisplayed()
+    {
+        if ($this->onlyForSubscribers) {
+            if(!Auth::check()){
+                return false;
+            }
+        }
+        return true;
     }
 }
