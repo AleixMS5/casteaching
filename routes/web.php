@@ -7,6 +7,7 @@ use App\Http\Controllers\VideosManageController;
 use App\Http\Controllers\VideosManageVueController;
 use GitHub\Sponsors\Client;
 use Illuminate\Support\Facades\Route;
+use Kanuu\Laravel\Facades\Kanuu;
 use Laravel\Socialite\Facades\Socialite;
 
 
@@ -16,6 +17,9 @@ Route::get('/videos/{id}', [VideosController::class, 'show']);
 
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/subscribe', function () {
+        return redirect(route('kanuu.redirect',Auth::user()));
+    })->name('subscribe');
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
@@ -90,7 +94,9 @@ Route::get('/auth/redirect',[\App\Http\Controllers\GithubAuthController::class,'
  );
 
 
-
+Kanuu::redirectRoute()
+    ->middleware('auth')
+    ->name('kanuu.redirect');
 Route::get('/auth/callback', [\App\Http\Controllers\GithubAuthController::class,'callback']);
 
 

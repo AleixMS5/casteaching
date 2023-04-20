@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Events\SeriesImageUpdated;
+use App\Actions\Fortify\SeriesImageUpdated;
+use App\Events\VideoCreated;
 use App\Listeners\SchedudleSeriesImageProcessing;
 use App\Listeners\SendVideocreatedNotification;
-use App\Events\VideoCreated;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;

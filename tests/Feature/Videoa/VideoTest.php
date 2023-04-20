@@ -14,12 +14,40 @@ use Tests\TestCase;
 class VideoTest extends TestCase
 {
     use RefreshDatabase;
+
+    /**
+     *
+     * @test
+     */
+    public function users_can_view_videos_without_serie()
+    {
+        $video = Video::create([
+            'title' => 'Title here',
+            'description' => 'Description here',
+            'url' => 'https://youtu.be/w8j07_DBl_I',
+            'published_at' => Carbon::parse('December 13, 2020 8:00pm'),
+            'previous' => null,
+            'next' => null,
+            'serie_id' => null
+        ]);
+        $response = $this->get('/videos/' . $video->id);
+
+
+        //ASSERTIONS
+        $response->assertStatus(200);
+        $response->assertSee('Title here');
+        $response->assertSee('Description here');
+        $response->assertSee('13 de desembre de 2020');
+    }
+
+
     /**
     *
      * @test
      */
     public function users_can_view_videos()
     {
+
         //PREPARE
         //Wishful programming
         $video = Video::create([
@@ -29,7 +57,7 @@ class VideoTest extends TestCase
             'published_at' => Carbon::parse('December 13, 2020 8:00pm'),
             'previous' => null,
             'next' => null,
-            'series_id' => 1
+            'serie_id' => 1
         ]);
 
         //EXECUTION
@@ -42,10 +70,55 @@ class VideoTest extends TestCase
         $response->assertSee('Title here');
         $response->assertSee('Description here');
         $response->assertSee('13 de desembre de 2020');
+
+        $response->assertDontSee('<div id="layout_series_navigation"',false);
     }
 
 
+    /**
+     *
+     * @test
+     */
+    public function users_can_view_video_series_navigation()
+    {
 
+        //PREPARE
+        //Wishful programming
+        $serie=Serie::create([
+            'title'=>'TDD',
+
+            'description'=>'imatge',
+
+            'image'=>'tdd.jepg',
+            'teacher_name'=>'Aleix Montero Sabaté',
+            'teacher_photo_url'=>'https://www.gravatar.com/avatar/'.md5('sergiturbadenas@gmail.com'),
+            'created_at'=> \Illuminate\Support\Carbon::now()->addSeconds(1)
+        ]);
+        $video = Video::create([
+            'title' => 'Title here',
+            'description' => 'Description here',
+            'url' => 'https://youtu.be/w8j07_DBl_I',
+            'published_at' => Carbon::parse('December 13, 2020 8:00pm'),
+            'previous' => null,
+            'next' => null,
+            'serie_id' => $serie->id
+        ]);
+
+        //EXECUTION
+        // Http test
+        $response = $this->get('/videos/' . $video->id);
+
+
+        //ASSERTIONS
+        $response->assertStatus(200);
+        $response->assertSee('Title here');
+        $response->assertSee('Description here');
+        $response->assertSee('13 de desembre de 2020');
+
+        $response->assertSee('<div id="layout_series_navigation"',false);
+        $response->assertSee($serie->title);
+        $response->assertSee($serie->teacher_name);
+    }
 
     /**
      *

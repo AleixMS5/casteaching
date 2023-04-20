@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\File;
 use Tests\Unit\SerieTest;
 
 class Serie extends Model
@@ -41,15 +42,18 @@ class Serie extends Model
     {
         return optional($this->created_at)->timestamp;
     }
-    /**
-     * Get the user's first name.
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
-     */
+
     protected function imageUrl(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => is_null($this->image) ? 'series_photos/placeholder.png' : $this->image ,
+            get: fn ($value) => $this->image ?? 'series/placeholder.png',
+        );
+    }
+
+    protected function url(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => count($this->videos) > 0 ? '/videos/' . $this->videos->first()->id : '#'
         );
     }
 }

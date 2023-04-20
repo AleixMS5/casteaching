@@ -7,7 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-
+use Illuminate\Notifications\Messages\BroadcastMessage;
 class VideoCreated extends Notification
 {
     use Queueable;
@@ -44,6 +44,19 @@ class VideoCreated extends Notification
                     ->line('Sha creat el nou viedeo'.$this->video->title." .")
                     ->action('veure el video', url($this->video->url))
                     ->line('Gracies per utilitzar la nostra app!');
+    }
+    /**
+     * Get the broadcastable representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return BroadcastMessage
+     */
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'title' => $this->video->title,
+            'description' => $this->video->description,
+        ]);
     }
 
     /**

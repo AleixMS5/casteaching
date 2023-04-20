@@ -11,7 +11,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class VideoCreated
+class VideoCreated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -33,6 +33,6 @@ class VideoCreated
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new Channel('notifications');
     }
 }

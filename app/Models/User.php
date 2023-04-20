@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
+use Kanuu\Laravel\Billable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Tests\Unit\UserTest;
@@ -21,7 +22,9 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use HasTeams;
     use Notifiable;
-    use TwoFactorAuthenticatable;use HasRoles;
+    use TwoFactorAuthenticatable;
+    use HasRoles;
+    use Billable;
 protected static function testedBy()
 {
 return UserTest::class;
@@ -67,6 +70,16 @@ return UserTest::class;
     ];
     public function isSuperAdmin(){
 return boolval($this->superadmin);
+    }
+    public function addVideo(Video $video)
+    {
+        $video->user_id = $this->id;
+        $video->save();
+        return $this;
+    }
+    public function videos()
+    {
+        return $this->hasMany(Video::class);
     }
 
     public static function createUserFromGithub($githubUser)

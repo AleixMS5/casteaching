@@ -2,18 +2,13 @@
 
 namespace Tests\Unit\Listeners;
 
-use App\Events\SeriesImageUpdated;
-use App\Events\VideoCreated as VideoCreatedEvent;
+use App\Actions\Fortify\SeriesImageUpdated;
 use App\Jobs\ProssesSeriesImage;
-use App\Listeners\SendVideocreatedNotification;
 use App\Models\Serie;
-use App\Models\Video;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Notifications\AnonymousNotifiable;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Queue;
-use Illuminate\Support\Str;
 use Tests\TestCase;
+
 class SchedudleSeriesImageProcessingTest extends TestCase
 {
     use DatabaseMigrations;

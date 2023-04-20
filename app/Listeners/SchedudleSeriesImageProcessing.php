@@ -21,12 +21,14 @@ class SchedudleSeriesImageProcessing
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param object $event
      * @return void
      */
     public function handle($event)
     {
-        if($event->serie->image != null ){    ProssesSeriesImage::dispatch($event->serie);}
+        if ($event->serie->image != null) {
+            ProssesSeriesImage::dispatch($event->serie);
+        }
 
 //        $event->serie
     }
