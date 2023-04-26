@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Fortify\SeriesImageUpdated;
+use App\Events\SeriesImageUpdated;
 use App\Models\Serie;
 use Illuminate\Http\Request;
 use Tests\Feature\SeriesImageManageControllerTest;
@@ -17,7 +17,7 @@ class SeriesImageManageController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'image' => ['image', 'dimensions:min_height=400,ratio=16/9']
+            'image' => ['image', 'dimensions:min_height=400,ratio=16/9 ax:2000']
         ]);
         $serie = Serie::findOrFail($request->id);
 

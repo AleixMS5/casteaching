@@ -251,9 +251,10 @@ if (! function_exists('create_series_manager_user')) {
 if (! function_exists('create_placeholder_series_image')) {
     function create_placeholder_series_image()
     {
-        return Storage::disk('public')->putFileAs('series', new File(base_path('series_photos/placeholder.jpeg')),'placeholder.png');
+        return Storage::disk('public')->putFileAs('series', new File(base_path('/series_photos/placeholder.jpeg')),'placeholder.png');
     }
 }
+
 if (! function_exists('create_sample_series')) {
     function create_sample_series()
     {
@@ -293,7 +294,16 @@ if (! function_exists('create_sample_series')) {
             'description' => 'Bla bla bla',
         ]);
 
-        return [$serie1,$serie2,$serie3,$serie4];
+        $path=Storage::disk('public')->putFile('series',new File(base_path("series_photos/tdd3.jpeg")));
+        $serie5 = Serie::create([
+            'title' => 'prova',
+            'description' => 'prova',
+            'image' =>  $path,
+            'teacher_name' => 'Sergi Tur Badenas',
+            'teacher_photo_url' => 'https://www.gravatar.com/avatar/' . md5('sergiturbadenas@gmail.com')
+        ]);
+
+        return [$serie1,$serie2,$serie3,$serie4,$serie5];
     }
 }
 

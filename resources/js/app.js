@@ -4,6 +4,7 @@ import Alpine from 'alpinejs';
 import casteaching from '@acacha/casteaching' ;
 import Vue from 'vue/dist/vue.js';
 import VideosList from "./components/VideosList.vue";
+import NotifiCation from "./components/Notification.vue";
 import VideoForm from "./components/VideoForm.vue";
 const baseUrl = import.meta.env.VITE_API_URL;
 import Status from "./components/Status.vue";
@@ -24,8 +25,8 @@ if(vueApp){
     window.Vue.component('videos-list', VideosList )
     window.Vue.component('video-form', VideoForm )
     window.Vue.component('status', Status )
-    // window.Vue.component('video-form', VideoForm )
-    // window.Vue.component('status', Status )
+    window.Vue.component('Notification', NotifiCation )
+
 
     const app = new window.Vue({
         el: '#vueapp',

@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Actions\Fortify\SeriesImageUpdated;
+use App\Events\SeriesImageUpdated;
 use App\Events\VideoCreated;
 use App\Listeners\SchedudleSeriesImageProcessing;
 use App\Listeners\SendVideocreatedNotification;
@@ -39,13 +39,5 @@ class EventServiceProvider extends ServiceProvider
         //
     }
 
-    /**
-     * Determine if events and listeners should be automatically discovered.
-     *
-     * @return bool
-     */
-    public function shouldDiscoverEvents()
-    {
-        return false;
-    }
+
 }

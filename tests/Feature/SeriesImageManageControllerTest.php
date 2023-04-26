@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Actions\Fortify\SeriesImageUpdated;
+use App\Events\SeriesImageUpdated;
 use App\Models\Serie;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;

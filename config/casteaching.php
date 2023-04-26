@@ -8,7 +8,7 @@ return [
     ],
     'admins'=>[
         'amontero@iesebre.com',
-//        'videosmanager@casteaching.com',
+
 
     ]
 
