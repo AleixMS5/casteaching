@@ -26,7 +26,7 @@ class SchedudleSeriesImageProcessing
      */
     public function handle($event)
     {
-        if ($event->serie->image != null) {
+        if ($event->serie->image) {
             ProssesSeriesImage::dispatch($event->serie);
         }
 

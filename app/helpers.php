@@ -251,7 +251,7 @@ if (! function_exists('create_series_manager_user')) {
 if (! function_exists('create_placeholder_series_image')) {
     function create_placeholder_series_image()
     {
-        return Storage::disk('public')->putFileAs('series', new File(base_path('/series_photos/placeholder.jpeg')),'placeholder.png');
+        return Storage::disk('public')->putFileAs('series', new File(base_path('/series_photos/placeholder.jpeg')),'placeholder.jpeg');
     }
 }
 
@@ -294,7 +294,7 @@ if (! function_exists('create_sample_series')) {
             'description' => 'Bla bla bla',
         ]);
 
-        $path=Storage::disk('public')->putFile('series',new File(base_path("series_photos/tdd3.jpeg")));
+        $path=Storage::disk('public')->putFile('series',new File(base_path("series_photos/placeholder.jpeg")));
         $serie5 = Serie::create([
             'title' => 'prova',
             'description' => 'prova',
