@@ -29,6 +29,9 @@
 
         <!-- Page Content -->
         <main>
+            <div id="vueapp">
+                <notification></notification>
+            </div>
             {{ $slot }}
         </main>
     </div>

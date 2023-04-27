@@ -47,6 +47,7 @@ class Serie extends Model
     {
         return new Attribute(
             get: fn ($value) => $this->image ?? 'series/placeholder.png',
+
         );
     }
 

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Listeners;
 
-use App\Actions\Fortify\SeriesImageUpdated;
+use App\Events\SeriesImageUpdated;
 use App\Jobs\ProssesSeriesImage;
 use App\Models\Serie;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
